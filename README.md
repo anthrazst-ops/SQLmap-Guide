@@ -81,17 +81,8 @@ query = "SELECT * FROM users WHERE id = ?"
 cursor.execute(query, (user_input,))
 ```
 
-SQLmap mengeksploitasi pola pertama — ia mencoba berbagai payload untuk "memecah" struktur query dan menyisipkan perintahnya sendiri.
+SQLmap mengeksploitasi pola pertama, ia mencoba berbagai payload untuk "memecah" struktur query dan menyisipkan perintahnya sendiri.
 
 Kalau server merespons berbeda terhadap payload tertentu, SQLmap tahu bahwa titik tersebut vulnerable dan mulai mengekstrak data secara sistematis.
 
----
-
-## Catatan Penting
-
-SQLmap hanya boleh digunakan pada:
-- Sistem yang kamu miliki sendiri
-- Lab atau environment yang dirancang untuk latihan (DVWA, HackTheBox, TryHackMe)
-- Target yang sudah mendapat izin eksplisit secara tertulis
-
-Penggunaan tanpa izin adalah ilegal.
+--
