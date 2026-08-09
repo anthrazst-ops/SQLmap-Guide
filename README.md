@@ -12,10 +12,10 @@ SQLmap ngirim request ke target dengan berbagai payload SQL. Dia liat response s
 
 Belajar sqlmap cukup hafal 4 tangga, naik dikit-dikit dari tangga sebelumnya:
 
-Tangga 1, tes param rawan atau enggak.
-Tangga 2, minta daftar database.
-Tangga 3, pilih database, minta daftar tabel.
-Tangga 4, pilih tabel, dump isinya. Di sini flag biasanya keluar.
+- Tangga 1, tes param rawan atau enggak.
+- Tangga 2, minta daftar database.
+- Tangga 3, pilih database, minta daftar tabel.
+- Tangga 4, pilih tabel, dump isinya. Di sini flag biasanya keluar.
 
 ## Kapan Dipakai di CTF
 
