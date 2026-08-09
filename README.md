@@ -85,4 +85,4 @@ SQLmap mengeksploitasi pola pertama, ia mencoba berbagai payload untuk "memecah"
 
 Kalau server merespons berbeda terhadap payload tertentu, SQLmap tahu bahwa titik tersebut vulnerable dan mulai mengekstrak data secara sistematis.
 
---
+---
