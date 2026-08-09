@@ -57,10 +57,6 @@ Buat param yang gak kedetek di level default.
 - -T      pilih tabel
 - --dump  dump isi tabel
 
-```bash
-sqlmap -r request.txt --batch
-```
-
 ## Target POST Langsung
 
 ```bash
