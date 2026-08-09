@@ -2,57 +2,40 @@
 
 ## Apa itu SQLmap?
 
-SQLmap adalah tool open-source untuk otomasi deteksi dan eksploitasi celah **SQL Injection** pada aplikasi web. Tool ini ditulis dalam Python dan tersedia secara gratis di [sqlmap.org](https://sqlmap.org).
+SQLmap adalah tool otomatis untuk deteksi dan eksploitasi SQL Injection. Kasih URL, dia yang tes, ngedeteksi, dan narik datanya. Yang manual bisa berjam-jam, dia menit doang.
 
-Singkatnya — SQLmap melakukan pekerjaan yang kalau dilakukan manual bisa memakan waktu berjam-jam, hanya dalam hitungan detik.
+## Cara Kerja
 
----
+SQLmap ngirim request ke target dengan berbagai payload SQL. Dia liat response server: beda, error, atau delay. Dari situ dia tau param mana yang rawan dan teknik injeksi apa yang kepake. Setelah ketemu, dia mulai narik data dari database.
 
-## Definisi SQL Injection
+## Empat Tangga
 
-SQL Injection adalah celah keamanan di mana attacker bisa **menyisipkan perintah SQL** ke dalam input yang dikirim ke database. Kalau aplikasi tidak memvalidasi input dengan benar, database akan mengeksekusi perintah tersebut.
+Belajar sqlmap cukup hafal 4 tangga, naik dikit-dikit dari tangga sebelumnya:
 
-Contoh sederhana:
+Tangga 1, tes param rawan atau enggak.
+Tangga 2, minta daftar database.
+Tangga 3, pilih database, minta daftar tabel.
+Tangga 4, pilih tabel, dump isinya. Di sini flag biasanya keluar.
 
-Query normal di belakang layar:
-```sql
-SELECT * FROM users WHERE username = 'admin' AND password = '1234'
-```
+## Kapan Dipakai di CTF
 
-Kalau input tidak divalidasi, attacker bisa kirim:
-```
-username: admin'--
-```
+- Ada param di URL, misal index.php?id=1
+- Ada form login atau pencarian yang ngirim data ke server
+- Response nunjukin error database, misal "SQL syntax error"
+- Challenge kasih source code yang query-nya di-concatenate langsung
 
-Query menjadi:
-```sql
-SELECT * FROM users WHERE username = 'admin'--' AND password = '...'
-```
+## Tentang --batch
 
-Tanda `--` adalah komentar di SQL — artinya bagian password diabaikan, dan attacker bisa login tanpa password.
+Flag yang paling penting. SQLmap pas jalan suka nanya terus, misal "do you want to keep testing the others?" atau "do you want to exploit this SQL injection?". --batch jawab semua pertanyaan itu otomatis jadi iya. Tanpa --batch, command bakal nyangkut nunggu jawaban.
 
----
+## Catatan Penting
 
-## Cara Kerja SQLmap
+- SQLite tidak mendukung --dbs, langsung lompat ke --tables
+- Level default kadang gak kedetek param aneh di CTF, pake --level 3 --risk 2
+- Kalau target butuh login, save request dari Burp dan pake -r
+- Hanya untuk target lab atau CTF resmi
 
-SQLmap bekerja dengan cara:
-
-1. **Mengirim request** ke target URL atau form yang ditentukan
-2. **Menyisipkan payload** SQL di setiap parameter yang ditemukan
-3. **Menganalisis response** dari server — apakah ada perbedaan, error, atau delay
-4. **Menentukan teknik injeksi** yang berhasil dari beberapa teknik yang tersedia:
-   - Boolean-based blind
-   - Time-based blind
-   - Error-based
-   - UNION query
-   - Stacked queries
-5. **Mengeksploitasi celah** tersebut untuk mengekstrak data dari database
-
----
-
-## Kegunaan SQLmap
-
-- Mengekstrak isi database (username, password, data sensitif)
+Command lengkap ada di [docs/basic-command.md](docs/basic-command.md)
 - Mengetahui struktur database (nama database, tabel, kolom)
 - Bypass autentikasi login
 - Dalam konteks CTF: menemukan flag yang tersimpan di dalam database
