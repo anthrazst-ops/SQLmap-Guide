@@ -48,14 +48,14 @@ Buat param yang gak kedetek di level default.
 
 ## Keterangan Opsi
 
--u      URL target
---data  body POST langsung
---batch jawab semua prompt otomatis
---dbs   daftar database
--D      pilih database
---tables daftar tabel
--T      pilih tabel
---dump  dump isi tabel
+- -u      URL target
+- --data  body POST langsung
+- --batch jawab semua prompt otomatis
+- --dbs   daftar database
+- -D      pilih database
+- --tables daftar tabel
+- -T      pilih tabel
+- --dump  dump isi tabel
 
 ```bash
 sqlmap -r request.txt --batch
